@@ -1,0 +1,42 @@
+{
+  "name": "read-css",
+  "version": "0.0.0",
+  "description": "Read CSS file into object",
+  "author": "Ryan Van Etten",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --ext .js",
+    "preversion": "npm test",
+    "pretest": "npm run lint",
+    "test": "node test.js"
+  },
+  "homepage": "https://github.com/ryanve/read-css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanve/read-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryanve/read-css/issues"
+  },
+  "dependencies": {
+    "css": "^2.2.1"
+  },
+  "devDependencies": {
+    "deep-equal": "^1.0.1",
+    "eslint": "^3.19.0"
+  },
+  "keywords": [
+    "selectors",
+    "read-file",
+    "readfile",
+    "node.js",
+    "nodejs",
+    "node",
+    "read",
+    "file",
+    "ast",
+    "css",
+    "fs"
+  ]
+}
