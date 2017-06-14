@@ -27,7 +27,6 @@
     "eslint": "^3.19.0"
   },
   "keywords": [
-    "selectors",
     "read-file",
     "readfile",
     "node.js",
