@@ -1,34 +1,26 @@
-var read = require('./')
-var equal = require('deep-equal')
+const fs = require('fs')
+const read = require('./')
+const equal = require('deep-equal')
+const print = data => JSON.stringify(data, null, 2)
 
-function log(data) {
-  console.log(JSON.stringify(data, null, 2))
-}
-
-function ok(id, actual, correct) {
-  if (equal(actual, correct)) {
-    console.info('Passed', id)
-  } else {
-    console.error('Failed', id, actual,  ' should be ', correct)
+const ok = function(id, actual, correct) {
+  if (equal(actual, correct)) console.info('Passed:', id)
+  else {
+    console.error('Failed:', id, actual,  ' should be ', correct)
     throw new Error
   }
 }
 
-function test(method, expected) {
-  const subject = method === read ? read : read[method]
-  method = method === read ? 'read-css' : method
+read('test.css', function(err, data) {
+  if (err) throw err
+  const tree = read('test.css')
 
-  subject('test.css', function(err, data) {
+  fs.writeFile('test.json', print(tree), function(err) {
     if (err) throw err
-    ok(method + ' (async)', data, expected || data)
-    log(data)
+    console.info('\nAST output printed to test.json')
   })
 
-  let data = subject('test.css')
-  ok(method + ' (sync)', data, expected || data)
-  log(data)
-}
-
-test(read)
-test('rules')
-test('selectors', ['.apple', '.orange'])
+  ok('sync', tree instanceof Object, true)
+  ok('async', data instanceof Object, true)
+  ok('precision', data, tree)
+});
