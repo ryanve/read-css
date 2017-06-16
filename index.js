@@ -1,14 +1,15 @@
+const encoding = 'utf8'
 const fs = require('fs')
 const css = require('css')
 const path = require('path')
-const parse = (buffer, file) => css.parse(String(buffer), { source: file })
+const parse = (code, file) => css.parse(code, { source: file })
 
 const read = function(file, cb) {
   const abs = path.resolve(file)
-  const flow = buffer => parse(buffer, file)
-  return typeof cb == 'function' ? fs.readFile(abs, function(err, buffer) {
-    err ? cb(err) : cb(err, flow(buffer))
-  }) : flow(fs.readFileSync(abs))
+  const flow = code => parse(code, file)
+  return typeof cb == 'function' ? fs.readFile(abs, encoding, function(err, code) {
+    err ? cb(err) : cb(err, flow(code))
+  }) : flow(fs.readFileSync(abs, encoding))
 }
 
 module.exports = read;
